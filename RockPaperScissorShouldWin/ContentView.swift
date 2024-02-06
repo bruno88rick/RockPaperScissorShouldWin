@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var numberOfQuestion = 1
     @State private var score = 0
     @State private var machineMoveAnimation = 1.0
+    @State private var remainingQuestions = 10
     @State private var showingGameOver = false
     @State private var showingResult = false
     @State private var showingMatchButton = false
@@ -124,15 +125,29 @@ struct ContentView: View {
                     }
                 }
                 .blur(radius: blurEveryThing ? 3 : 0, opaque: false)
-                Spacer()
-                Text("Pontuação: \(score)")
-                    .font(.system(size: 30).bold())
             }
             .padding()
             .toolbar {
                 Button("Reiniciar Game", action: resetGame)
                     .foregroundStyle(.red)
             }
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 20){
+                    Text("Pontuação: \(score)")
+                        .font(.system(size: 20).bold())
+                    HStack {
+                        Text("Jogadas Restantes:")
+                            .font(.system(size: 15).bold())
+                        Text("\(remainingQuestions) de 10")
+                            .font(.system(size: 15).bold())
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(.blue)
+                .foregroundStyle(.white)
+                .shadow(radius: 10)
+             }
             .onAppear {
                 machineMoveAnimation = 2
             }
@@ -158,6 +173,7 @@ struct ContentView: View {
             showingMatchButton = true
             score += 1
             numberOfQuestion += 1
+            remainingQuestions -= 1
         } else {
             userChoiceIsCorrect = false
             withAnimation() {
@@ -167,6 +183,7 @@ struct ContentView: View {
             showingMatchButton = true
             score -= 1
             numberOfQuestion += 1
+            remainingQuestions -= 1
         }
         
         if numberOfQuestion == 11 {
@@ -187,6 +204,7 @@ struct ContentView: View {
         withAnimation() {
             showingResult = false
             blurEveryThing = false
+            remainingQuestions = 10
         }
         showingMatchButton = false
         updateMachineMovement = false
