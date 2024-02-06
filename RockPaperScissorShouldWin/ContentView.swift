@@ -77,7 +77,7 @@ struct ContentView: View {
                         .font(.system(size: 30).bold())
                         .foregroundStyle(userChoiceIsCorrect ? .mint : .brown)
                         .hiddenConditionally(isHidden: showingResult)
-                    ProgressView()
+                    ProgressView("Esperando sua Jogada...")
                         .hiddenConditionally(isHidden: !showingResult)
                 }
                 HStack {
@@ -91,7 +91,7 @@ struct ContentView: View {
                         }
                         
                     } label: {
-                        Text("Próxima Partida")
+                        Text("Contiuar...")
                     }
                     .frame(width: 200, height: 50)
                     .foregroundStyle(.white)
