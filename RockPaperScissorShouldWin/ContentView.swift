@@ -125,7 +125,7 @@ struct ContentView: View {
                 }
                 .blur(radius: blurEveryThing ? 3 : 0, opaque: false)
                 Spacer()
-                Text("Score: \(score)")
+                Text("Pontuação: \(score)")
                     .font(.system(size: 30).bold())
             }
             .padding()
